@@ -58,7 +58,7 @@ function CheckoutForm({ tierName, amount, channelId, onSubscriptionComplete, isU
         throw new Error('Failed to create subscription');
       }
 
-      const { clientSecret } = await response.json();
+      const { clientSecret, subscriptionId } = await response.json();
 
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -70,7 +70,7 @@ function CheckoutForm({ tierName, amount, channelId, onSubscriptionComplete, isU
         throw new Error(result.error.message);
       }
 
-      onSubscriptionComplete({ subscriptionId: result.paymentIntent?.id, tierName, amount });
+      onSubscriptionComplete({ subscriptionId, tierName, amount });
     } catch (error) {
       console.error('Error:', error);
       toast.error('Subscription failed. Please try again.');
