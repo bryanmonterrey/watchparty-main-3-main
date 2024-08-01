@@ -1,0 +1,74 @@
+"use client";
+
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import { 
+    Fullscreen,
+    KeyRound,
+    MessageSquare,
+    Users,
+} from "lucide-react"
+import { NavItem, NavItemSkeleton } from "./navItem";
+
+export const Navigation = () => {
+    const pathname = usePathname();
+    const { user } = useUser();
+
+    const routes = [
+        {
+            label: "Stream",
+            href: `/u/${user?.username}`,
+            icon: Fullscreen,
+        },
+        {
+            label: "Customize",
+            href: `/u/${user?.username}/customize`,
+            icon: Users,
+        },
+        {
+            label: "Keys",
+            href: `/u/${user?.username}/keys`,
+            icon: KeyRound,
+        },
+        {
+            label: "Chat",
+            href: `/u/${user?.username}/chat`,
+            icon: MessageSquare,
+        },
+        {
+            label: "Community",
+            href: `/u/${user?.username}/community`,
+            icon: Users,
+        },
+        {
+            label: "Monetization",
+            href: `/u/${user?.username}/monetization`,
+            icon: Fullscreen,
+        },
+        {
+            label: "Subscription",
+            href: `/u/${user?.username}/subscription`,
+            icon: Fullscreen,
+        },
+    ];
+
+    if(!user?.username) {
+        return (
+            <ul className="space-y-0">
+                {[...Array(4)].map((_, i) => (
+                    <NavItemSkeleton key={i} />
+                ))}
+            </ul>
+        );
+    }
+
+    return (
+        <ul className="space-y-0 px-2 pt-4 lg:pt-0">
+           {routes.map((route) => (
+                <NavItem
+                key={route.href} label={route.label} icon={route.icon} href={route.href} isActive={pathname === route.href}
+                />
+           ))}
+        </ul>
+    );
+};
