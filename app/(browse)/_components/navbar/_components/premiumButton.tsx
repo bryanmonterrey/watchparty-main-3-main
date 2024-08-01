@@ -121,7 +121,7 @@ export const PremiumButton = () => {
                         </TabsContent>
                         <TabsContent className="flex m-auto items-center" value="crypto">
                             {cryptoChargeId ? (
-                                <CryptoPaymentDialog chargeId={cryptoChargeId} />
+                                <CryptoPaymentDialog chargeId={cryptoChargeId} amount={9.99} />
                             ) : (
                                 <div className='flex p-6 m-auto items-center'>
                                 <Image src="/load.svg" alt="loading" className='animate-spin' width={30} height={30}/>

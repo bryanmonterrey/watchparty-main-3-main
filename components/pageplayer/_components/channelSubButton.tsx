@@ -89,7 +89,7 @@ function CheckoutForm({ tierName, amount, channelId, onSubscriptionComplete, isU
   );
 }
 
-export const ChannelSubscribeButton = React.memo(({ 
+const ChannelSubscribeButtonComponent = ({ 
     channelId, 
     tiers, 
     currentSubscription, 
@@ -211,4 +211,8 @@ export const ChannelSubscribeButton = React.memo(({
             ))}
         </>
     );
-});
+};
+
+export const ChannelSubscribeButton = React.memo(ChannelSubscribeButtonComponent);
+
+ChannelSubscribeButton.displayName = 'ChannelSubscribeButton';
